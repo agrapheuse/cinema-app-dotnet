@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1QLZy5uoWik=",
+  "dgSpecHash": "8bcAfZgKrZs=",
   "success": true,
-  "projectFilePath": "C:\\Users\\noahd\\source\\repos\\cinemaApp\\cinemaApp\\cinemaApp.csproj",
+  "projectFilePath": "C:\\Users\\noahd\\source\\repos\\cinema-app-dotnet\\cinemaApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\noahd\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\noahd\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",

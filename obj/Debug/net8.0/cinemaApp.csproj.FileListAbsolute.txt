@@ -31,3 +31,4 @@ C:\Users\noahd\source\repos\cinema-app-dotnet\obj\Debug\net8.0\refint\cinemaApp.
 C:\Users\noahd\source\repos\cinema-app-dotnet\obj\Debug\net8.0\cinemaApp.pdb
 C:\Users\noahd\source\repos\cinema-app-dotnet\obj\Debug\net8.0\cinemaApp.genruntimeconfig.cache
 C:\Users\noahd\source\repos\cinema-app-dotnet\obj\Debug\net8.0\ref\cinemaApp.dll
+C:\Users\noahd\source\repos\cinema-app-dotnet\bin\Debug\net8.0\appsettings.Production.json

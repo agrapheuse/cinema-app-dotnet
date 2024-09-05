@@ -433,11 +433,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\noahd\\source\\repos\\cinemaApp\\cinemaApp\\cinemaApp.csproj",
+      "projectUniqueName": "C:\\Users\\noahd\\source\\repos\\cinema-app-dotnet\\cinemaApp.csproj",
       "projectName": "cinemaApp",
-      "projectPath": "C:\\Users\\noahd\\source\\repos\\cinemaApp\\cinemaApp\\cinemaApp.csproj",
+      "projectPath": "C:\\Users\\noahd\\source\\repos\\cinema-app-dotnet\\cinemaApp.csproj",
       "packagesPath": "C:\\Users\\noahd\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\noahd\\source\\repos\\cinemaApp\\cinemaApp\\obj\\",
+      "outputPath": "C:\\Users\\noahd\\source\\repos\\cinema-app-dotnet\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\noahd\\AppData\\Roaming\\NuGet\\NuGet.Config",
