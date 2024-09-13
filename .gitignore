@@ -1,13 +1,13 @@
 ﻿# visual studio
-/.vs
+*/.vs
 
 # bin
-/bin
-/obj
-/Debug
+*/bin
+*/obj
+*/Debug
 
 # logs
-/internal_logs
+*/internal_logs
 
 
 
