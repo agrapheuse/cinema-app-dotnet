@@ -1,13 +1,11 @@
-﻿# visual studio
-*/.vs
+﻿# Visual Studio related files
+.vs/
+.vscode/
 
-# bin
-*/bin
-*/obj
-*/Debug
+# Ignore bin and obj directories in any subfolder
+**/bin/
+**/obj/
+**/Debug/
 
-# logs
-*/internal_logs
-
-
-
+# Logs
+**/internal_logs/
