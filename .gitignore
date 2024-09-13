@@ -1,1 +1,13 @@
-﻿/.vs
+﻿# visual studio
+/.vs
+
+# bin
+/bin
+/obj
+/Debug
+
+# logs
+/internal_logs
+
+
+
