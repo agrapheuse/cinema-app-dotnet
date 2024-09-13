@@ -1,0 +1,11 @@
+C:\Users\noahd\source\repos\Contracts\bin\Debug\net8.0\Contracts.deps.json
+C:\Users\noahd\source\repos\Contracts\bin\Debug\net8.0\Contracts.dll
+C:\Users\noahd\source\repos\Contracts\bin\Debug\net8.0\Contracts.pdb
+C:\Users\noahd\source\repos\Contracts\obj\Debug\net8.0\Contracts.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\noahd\source\repos\Contracts\obj\Debug\net8.0\Contracts.AssemblyInfoInputs.cache
+C:\Users\noahd\source\repos\Contracts\obj\Debug\net8.0\Contracts.AssemblyInfo.cs
+C:\Users\noahd\source\repos\Contracts\obj\Debug\net8.0\Contracts.csproj.CoreCompileInputs.cache
+C:\Users\noahd\source\repos\Contracts\obj\Debug\net8.0\Contracts.dll
+C:\Users\noahd\source\repos\Contracts\obj\Debug\net8.0\refint\Contracts.dll
+C:\Users\noahd\source\repos\Contracts\obj\Debug\net8.0\Contracts.pdb
+C:\Users\noahd\source\repos\Contracts\obj\Debug\net8.0\ref\Contracts.dll
