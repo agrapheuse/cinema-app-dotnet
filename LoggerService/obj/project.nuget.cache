@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5bHbqo/4XLY=",
+  "dgSpecHash": "4w6HrWkSDP0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\noahd\\source\\repos\\LoggerService\\LoggerService.csproj",
+  "projectFilePath": "C:\\Users\\noahd\\source\\repos\\cinema-app-dotnet\\LoggerService\\LoggerService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\noahd\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\8.0.0\\microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\noahd\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\8.0.0\\microsoft.extensions.dependencyinjection.8.0.0.nupkg.sha512",

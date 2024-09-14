@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Repository;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace cinemaApp.ContextFactory;
 

@@ -1,4 +1,5 @@
 using cinemaApp.Extensions;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.HttpOverrides;
 using NLog;
 
@@ -13,8 +14,10 @@ builder.Services.ConfigureIISIntegration();
 builder.Services.ConfigureLoggerService();
 builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServiceManager();
+builder.Services.ConfigureDbContext(builder.Configuration);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddApplicationPart(typeof(cinemaApp.Presentation.AssemblyReference).Assembly);
 
 var app = builder.Build();
 

@@ -1,5 +1,7 @@
 using Contracts;
 using LoggerService;
+using Microsoft.EntityFrameworkCore;
+using MySql.EntityFrameworkCore.Extensions;
 using Repository;
 using Service;
 using Service.Contracts;
@@ -24,6 +26,10 @@ public static class ServiceExtensions
 
     public static void ConfigureLoggerService(this IServiceCollection services) =>
 		services.AddSingleton<ILoggerManager, LoggerManager>();
+
+	public static void ConfigureDbContext(this IServiceCollection services, IConfiguration configuration) =>
+        services.AddDbContext<RepositoryContext>(opts =>
+			opts.UseMySQL(configuration.GetConnectionString("MySqlConnection")));
 
     public static void ConfigureRepositoryManager(this IServiceCollection services) =>
 		services.AddScoped<IRepositoryManager, RepositoryManager>();
