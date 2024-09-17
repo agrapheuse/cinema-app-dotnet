@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities.Models;
 using Service.Contracts;
+using System;
 
 namespace Service;
 
@@ -39,6 +40,20 @@ public sealed class MovieService : IMovieService
         catch (Exception ex)
         {
             _logger.LogError($"Something went wrong in the {nameof(GetMovieById)} service method {ex}");
+            throw;
+        }
+    }
+
+    public IEnumerable<string> GetAllCinemas(string city, bool trackChanges)
+    {
+        try
+        {
+            var cinemas = _repository.Movie.GetAllCinemas(city, trackChanges);
+            return cinemas;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Something went wrong in the {nameof(GetAllCinemas)} service method {ex}");
             throw;
         }
     }

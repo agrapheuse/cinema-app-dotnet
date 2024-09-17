@@ -14,4 +14,10 @@ public class MovieRepository : RepositoryBase<Movie>, IMovieRepository
 
     public Movie GetMovieById(Guid guid, bool trackChanges) =>
         FindByCondition(movie => movie.Uuid == guid, trackChanges).FirstOrDefault();
+
+    public IEnumerable<string> GetAllCinemas(string city, bool trackChanges) =>
+        FindByCondition(movie => movie.City == city, trackChanges) 
+            .Select(movie => movie.Cinema)
+            .Distinct()
+            .ToList();
 }
