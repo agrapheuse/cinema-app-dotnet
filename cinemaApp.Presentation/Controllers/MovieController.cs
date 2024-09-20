@@ -14,12 +14,12 @@ public class MovieController : ControllerBase
         _service = service;
     }
 
-    [HttpGet]
-    public IActionResult GetMovies()
+    [HttpGet("{city}")]
+    public IActionResult GetMovies(string city)
     {
         try
         {
-            var movies = _service.MovieService.GetAllMovies(trackChanges: false);
+            var movies = _service.MovieService.GetAllMovies(city, trackChanges: false).Take(10);
             return Ok(movies);
         }
         catch (Exception)
@@ -28,7 +28,7 @@ public class MovieController : ControllerBase
         }
     }
 
-    [HttpGet("{uuid}")]
+    [HttpGet("movie/{uuid}")]
     public IActionResult GetMovieById(string uuid)
     {
         try

@@ -16,11 +16,11 @@ public sealed class MovieService : IMovieService
         _logger = logger;
     }
 
-    public IEnumerable<Movie> GetAllMovies(bool trackChanges)
+    public IEnumerable<Movie> GetAllMovies(string city, bool trackChanges)
     {
         try
         {
-            var movies = _repository.Movie.GetAllMovies(trackChanges);
+            var movies = _repository.Movie.GetAllMovies(city, trackChanges);
             return movies;
         } 
         catch (Exception ex)

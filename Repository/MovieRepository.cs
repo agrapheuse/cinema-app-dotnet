@@ -9,8 +9,8 @@ public class MovieRepository : RepositoryBase<Movie>, IMovieRepository
     {
     }
 
-    public IEnumerable<Movie> GetAllMovies(bool trackChanges) =>
-        FindAll(trackChanges).OrderBy(c => c.DateTime).ToList();
+    public IEnumerable<Movie> GetAllMovies(string city, bool trackChanges) =>
+        FindByCondition(movie => movie.City == city, trackChanges).OrderBy(movie => movie.DateTime);
 
     public Movie GetMovieById(Guid guid, bool trackChanges) =>
         FindByCondition(movie => movie.Uuid == guid, trackChanges).FirstOrDefault();
