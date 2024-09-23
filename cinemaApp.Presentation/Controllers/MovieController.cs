@@ -14,12 +14,27 @@ public class MovieController : ControllerBase
         _service = service;
     }
 
-    [HttpGet("{city}")]
-    public IActionResult GetMovies(string city)
+    [HttpGet]
+    public IActionResult GetMovies()
     {
         try
         {
-            var movies = _service.MovieService.GetAllMovies(city, trackChanges: false).Take(10);
+            var movies = _service.MovieService.GetAllMovies(trackChanges: false).Take(10);
+            return Ok(movies);
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+
+    [HttpGet("{city}")]
+    public IActionResult GetMoviesForCity(string city)
+    {
+        try
+        {
+            var movies = _service.MovieService.GetMoviesForCity(city, trackChanges: false).Take(10);
             return Ok(movies);
         }
         catch (Exception)

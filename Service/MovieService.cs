@@ -16,16 +16,30 @@ public sealed class MovieService : IMovieService
         _logger = logger;
     }
 
-    public IEnumerable<Movie> GetAllMovies(string city, bool trackChanges)
+    public IEnumerable<Movie> GetAllMovies(bool trackChanges)
     {
         try
         {
-            var movies = _repository.Movie.GetAllMovies(city, trackChanges);
+            var movies = _repository.Movie.GetAllMovies(trackChanges);
             return movies;
         } 
         catch (Exception ex)
         {
             _logger.LogError($"Something went wrong in the {nameof(GetAllMovies)} service method {ex}");
+            throw;
+        }
+    }
+
+    public IEnumerable<Movie> GetMoviesForCity(string city, bool trackChanges)
+    {
+        try
+        {
+            var movies = _repository.Movie.GetMoviesForCity(city, trackChanges);
+            return movies;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Something went wrong in the {nameof(GetMoviesForCity)} service method {ex}");
             throw;
         }
     }
