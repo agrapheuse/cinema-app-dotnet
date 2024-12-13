@@ -19,7 +19,7 @@ public class MovieController : ControllerBase
     {
         try
         {
-            var movies = _service.MovieService.GetAllMovies(trackChanges: false);
+            var movies = _service.MovieService.GetAllMovies(trackChanges: false).Take(10);
             return Ok(movies);
         }
         catch (Exception)
@@ -28,7 +28,22 @@ public class MovieController : ControllerBase
         }
     }
 
-    [HttpGet("{uuid}")]
+
+    [HttpGet("{city}")]
+    public IActionResult GetMoviesForCity(string city)
+    {
+        try
+        {
+            var movies = _service.MovieService.GetMoviesForCity(city, trackChanges: false)/**.Take(10)**/;
+            return Ok(movies);
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    [HttpGet("movie/{uuid}")]
     public IActionResult GetMovieById(string uuid)
     {
         try
@@ -45,4 +60,23 @@ public class MovieController : ControllerBase
             return StatusCode(500, "Internal Server Error");
         }
     }
+
+    [HttpGet("cinemas/{city}")]
+    public IActionResult GetCinemasByCity(string city)
+    {
+        try
+        {
+            var cinemas = _service.MovieService.GetAllCinemas(city, trackChanges: false);
+            if (cinemas == null)
+            {
+                return NotFound();
+            }
+            return Ok(cinemas);
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
 }
