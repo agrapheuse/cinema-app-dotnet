@@ -34,7 +34,7 @@ public class MovieController : ControllerBase
     {
         try
         {
-            var movies = _service.MovieService.GetMoviesForCity(city, trackChanges: false).Take(10);
+            var movies = _service.MovieService.GetMoviesForCity(city, trackChanges: false)/**.Take(10)**/;
             return Ok(movies);
         }
         catch (Exception)

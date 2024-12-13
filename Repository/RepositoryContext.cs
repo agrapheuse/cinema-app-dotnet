@@ -10,4 +10,6 @@ public class RepositoryContext : DbContext
     }
 
     public DbSet<Movie>? Movies { get; set; }
+    public DbSet<Like>? Likes { get; set; }
+    public DbSet<User>? Users { get; set; }
 }

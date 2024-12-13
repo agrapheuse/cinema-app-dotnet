@@ -9,5 +9,8 @@ namespace Contracts;
 public interface IRepositoryManager
 {
     IMovieRepository Movie {  get; }
+    ILikeRepository Like { get; }
+    IUserRepository User { get; }
+
     void Save();
 }
