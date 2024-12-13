@@ -119,6 +119,16 @@ namespace cinemaApp.Migrations
                         .HasColumnType("char(36)")
                         .HasColumnName("uuid");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("email");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("fullName");
+
                     b.HasKey("Uuid");
 
                     b.ToTable("Users");

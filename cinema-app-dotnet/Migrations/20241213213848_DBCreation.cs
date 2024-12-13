@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace cinemaApp.Migrations
 {
     /// <inheritdoc />
-    public partial class DatabaseCreation : Migration
+    public partial class DBCreation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -41,7 +41,9 @@ namespace cinemaApp.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    uuid = table.Column<Guid>(type: "char(36)", nullable: false)
+                    uuid = table.Column<Guid>(type: "char(36)", nullable: false),
+                    email = table.Column<string>(type: "longtext", nullable: false),
+                    fullName = table.Column<string>(type: "longtext", nullable: false)
                 },
                 constraints: table =>
                 {
