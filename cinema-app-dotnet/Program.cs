@@ -16,6 +16,8 @@ builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServiceManager();
 builder.Services.ConfigureDbContext(builder.Configuration);
 
+builder.Services.ConfigureGoogleAuthentication(builder.Configuration);
+
 builder.Services.AddControllers()
     .AddApplicationPart(typeof(cinemaApp.Presentation.AssemblyReference).Assembly);
 
