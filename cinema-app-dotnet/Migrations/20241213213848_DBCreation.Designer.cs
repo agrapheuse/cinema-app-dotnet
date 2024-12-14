@@ -11,8 +11,8 @@ using Repository;
 namespace cinemaApp.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20241213104540_DatabaseCreation")]
-    partial class DatabaseCreation
+    [Migration("20241213213848_DBCreation")]
+    partial class DBCreation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -121,6 +121,16 @@ namespace cinemaApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)")
                         .HasColumnName("uuid");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("email");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("fullName");
 
                     b.HasKey("Uuid");
 
