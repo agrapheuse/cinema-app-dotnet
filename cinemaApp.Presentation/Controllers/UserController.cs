@@ -46,11 +46,8 @@ public class UserController : ControllerBase
         }
     }
 
-
-    //TODO: implement getUserByEmail
-    /*
-    [HttpGet("{email}")]
-    public IActionResult getUser(string email)
+    [HttpGet("byEmail/{email}")]
+    public IActionResult getUserByEmail(string email)
     {
         try
         {
@@ -65,5 +62,5 @@ public class UserController : ControllerBase
         {
             return StatusCode(500, "Internal Server Error");
         }
-    }*/
+    }
 }

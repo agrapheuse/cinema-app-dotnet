@@ -39,4 +39,9 @@ public sealed class UserService : IUserService
     {
         throw new NotImplementedException();
     }
+
+    public UserDto GetUserByEmail(string email, bool trackChanges)
+    {
+        throw new NotImplementedException();
+    }
 }
