@@ -47,7 +47,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("byEmail/{email}")]
-    public IActionResult getUserByEmail(string email)
+    public IActionResult GetUserByEmail(string email)
     {
         try
         {
