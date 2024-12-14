@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "..\Service\Servi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggerService", "..\LoggerService\LoggerService.csproj", "{55086374-6FEF-4678-A8BE-178ED41B3506}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cinemaApp.Presentation", "..\cinemaApp.Presentation\cinemaApp.Presentation.csproj", "{62C1BD62-2040-463C-AAF5-287C2FB97FB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cinemaApp.Presentation", "..\cinemaApp.Presentation\cinemaApp.Presentation.csproj", "{62C1BD62-2040-463C-AAF5-287C2FB97FB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "..\Shared\Shared.csproj", "{93CA6770-ACF2-4DB8-B868-DFA055FF69DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{62C1BD62-2040-463C-AAF5-287C2FB97FB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62C1BD62-2040-463C-AAF5-287C2FB97FB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62C1BD62-2040-463C-AAF5-287C2FB97FB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93CA6770-ACF2-4DB8-B868-DFA055FF69DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93CA6770-ACF2-4DB8-B868-DFA055FF69DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93CA6770-ACF2-4DB8-B868-DFA055FF69DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93CA6770-ACF2-4DB8-B868-DFA055FF69DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

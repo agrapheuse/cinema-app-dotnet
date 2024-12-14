@@ -2,6 +2,7 @@
 using Entities.Models;
 using Service.Contracts;
 using System;
+using AutoMapper;
 
 namespace Service;
 
@@ -9,11 +10,13 @@ public sealed class MovieService : IMovieService
 {
     private readonly IRepositoryManager _repository;
     private readonly ILoggerManager _logger;
+    private readonly IMapper _mapper;
 
-    public MovieService(IRepositoryManager repository, ILoggerManager logger)
+    public MovieService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
     {
         _repository = repository;
         _logger = logger;
+        _mapper = mapper;
     }
 
     public IEnumerable<Movie> GetAllMovies(bool trackChanges)
@@ -29,6 +32,32 @@ public sealed class MovieService : IMovieService
             throw;
         }
     }
+
+    /* TODOOOOOO: improve service bc this SUX
+     *public IEnumerable<CompanyDto> GetAllCompanies(bool trackChanges)
+       {
+           try
+           {
+               // Fetch companies from the repository
+               var companies = _repository.Company.GetAllCompanies(trackChanges);
+       
+               // Map entities to DTOs
+               var companiesDto = companies.Select(c => new CompanyDto(
+                   c.Id,
+                   c.Name ?? string.Empty, // Ensure null-safe handling for Name
+                   string.Join(' ', new[] { c.Address, c.Country }.Where(s => !string.IsNullOrEmpty(s))) // Handle null/empty strings in Address and Country
+               )).ToList();
+       
+               return companiesDto;
+           }
+           catch (Exception ex)
+           {
+               // Log the error and rethrow the exception
+               _logger.LogError($"An error occurred in the {nameof(GetAllCompanies)} service method: {ex}");
+               throw;
+           }
+       }
+     */
 
     public IEnumerable<Movie> GetMoviesForCity(string city, bool trackChanges)
     {

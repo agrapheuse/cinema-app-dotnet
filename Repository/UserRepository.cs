@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Repository
 {
@@ -18,5 +19,7 @@ namespace Repository
         {
             throw new NotImplementedException();
         }
+
+        public void CreateUser(User user) => Create(user);
     }
 }
