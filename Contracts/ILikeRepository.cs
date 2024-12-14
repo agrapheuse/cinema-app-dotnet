@@ -9,5 +9,6 @@ namespace Contracts;
 
 public interface ILikeRepository
 {
-    IEnumerable<Like> GetLikeOfUser(Guid guid, bool trackChanges);
+    IEnumerable<Movie> GetLikeOfUser(Guid guid, bool trackChanges);
+    bool IsMovieLikedByUser(Guid userId, Guid movieId, bool trackChanges); 
 }

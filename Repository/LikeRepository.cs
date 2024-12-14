@@ -1,10 +1,5 @@
 ﻿using Contracts;
 using Entities.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repository;
 
@@ -14,8 +9,15 @@ public class LikeRepository : RepositoryBase<Like>, ILikeRepository
     {
     }
 
-    public IEnumerable<Like> GetLikeOfUser(Guid guid, bool trackChanges)
-        {
-            throw new NotImplementedException();
-        }
+    public IEnumerable<Movie> GetLikeOfUser(Guid userUuid, bool trackChanges) =>
+        FindByCondition(like => like.UserId == userUuid, trackChanges)
+            .Select(like => like.Movie)
+            .Where(movie => movie != null);
+
+
+    public bool IsMovieLikedByUser(Guid userId, Guid movieId, bool trackChanges)
+    {
+        var like = FindByCondition(like => like.UserId == userId && like.UserId == movieId, trackChanges);
+        return like != null;
+    }
 }
