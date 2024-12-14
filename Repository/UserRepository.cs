@@ -1,11 +1,5 @@
 ﻿using Contracts;
 using Entities.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Repository
 {
@@ -15,10 +9,13 @@ namespace Repository
         {
         }
 
-        public IEnumerable<User> GetAllUsers(bool trackChanges)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<User> GetAllUsers(bool trackChanges) => FindAll(trackChanges);
+
+        public User GetUserById(Guid id, bool trackChanges) =>
+            FindByCondition(user => user.Uuid == id, trackChanges).FirstOrDefault();
+
+        public User GetUserByEmail(string email, bool trackChanges) =>
+            FindByCondition(user => user.Email == email, trackChanges).FirstOrDefault();
 
         public void CreateUser(User user) => Create(user);
     }
