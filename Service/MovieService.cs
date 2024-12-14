@@ -24,10 +24,8 @@ public sealed class MovieService : IMovieService
     {
         try
         {
-            // Fetch companies from the repository
             var movies = _repository.Movie.GetAllMovies(trackChanges);
 
-            // Map entities to DTOs
             var movieDtos = movies.Select(m => new MovieDto(
                 m.Uuid, 
                 m.Title, 
@@ -47,7 +45,6 @@ public sealed class MovieService : IMovieService
         }
         catch (Exception ex)
         {
-            // Log the error and rethrow the exception
             _logger.LogError($"An error occurred in the {nameof(GetAllMovies)} service method: {ex}");
             throw;
         }

@@ -57,6 +57,15 @@ internal sealed class LikeService : ILikeService
 
     public bool IsMovieLikedByUser(Guid userId, Guid movieId, bool trackChanges)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var isLiked = _repository.Like.IsMovieLikedByUser(userId, movieId, trackChanges);
+            return isLiked;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Something went wrong in the {nameof(IsMovieLikedByUser)} service method {ex}");
+            throw;
+        }
     }
 }
