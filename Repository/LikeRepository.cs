@@ -20,4 +20,6 @@ public class LikeRepository : RepositoryBase<Like>, ILikeRepository
         var like = FindByCondition(like => like.UserId == userId && like.UserId == movieId, trackChanges);
         return like != null;
     }
+
+    public void CreateLike(Like like) => Create(like);
 }

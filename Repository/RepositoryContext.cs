@@ -1,5 +1,6 @@
 ﻿using Entities.Models;
 using Microsoft.EntityFrameworkCore;
+using Repository.Configuration;
 
 namespace Repository;
 
@@ -9,7 +10,13 @@ public class RepositoryContext : DbContext
     {
     }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfiguration(new CinemaConfiguration());
+    }
+
     public DbSet<Movie>? Movies { get; set; }
     public DbSet<Like>? Likes { get; set; }
     public DbSet<User>? Users { get; set; }
+    public DbSet<Cinema>? Cinemas { get; set; }
 }

@@ -1,12 +1,7 @@
-﻿using Contracts;
+﻿using AutoMapper;
+using Contracts;
 using Entities.Models;
 using Service.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
 using Shared.DataTransferObjects;
 
 namespace Service;
@@ -35,9 +30,7 @@ internal sealed class LikeService : ILikeService
                 m.Director ?? string.Empty,
                 m.Category ?? string.Empty,
                 m.Description ?? string.Empty,
-                m.Cinema,
-                m.Country,
-                m.City,
+                m.Cinema.Uuid,
                 m.DateTime,
                 m.ImageUrl,
                 m.InfoLink,
@@ -51,8 +44,6 @@ internal sealed class LikeService : ILikeService
             _logger.LogError($"Something went wrong in the {nameof(GetLikesOfUser)} service method {ex}");
             throw;
         }
-
-
     }
 
     public bool IsMovieLikedByUser(Guid userId, Guid movieId, bool trackChanges)
@@ -67,5 +58,16 @@ internal sealed class LikeService : ILikeService
             _logger.LogError($"Something went wrong in the {nameof(IsMovieLikedByUser)} service method {ex}");
             throw;
         }
+    }
+
+    public LikeDto CreateLike(LikeForCreationDto likeDto)
+    {
+        var LikeEntity = _mapper.Map<Like>(likeDto);
+
+        _repository.Like.CreateLike(LikeEntity);
+        _repository.Save();
+
+        var likeToReturn = _mapper.Map<LikeDto>(LikeEntity);
+        return likeToReturn;
     }
 }

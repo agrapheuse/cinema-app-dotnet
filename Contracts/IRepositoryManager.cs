@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Contracts;
+﻿namespace Contracts;
 
 public interface IRepositoryManager
 {
-    IMovieRepository Movie {  get; }
+    IMovieRepository Movie { get; }
     ILikeRepository Like { get; }
     IUserRepository User { get; }
+    ICinemaRepository Cinema { get; }
+    IUserCinemaRepository UserCinema { get; }
 
     void Save();
 }

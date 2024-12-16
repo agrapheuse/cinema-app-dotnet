@@ -12,4 +12,5 @@ public interface ILikeService
 {
     IEnumerable<MovieDto> GetLikesOfUser(Guid userId, bool trackChanges);
     bool IsMovieLikedByUser(Guid userId, Guid movieId, bool trackChanges);
+    LikeDto CreateLike(LikeForCreationDto likeDto);
 }

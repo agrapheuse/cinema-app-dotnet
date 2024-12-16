@@ -42,7 +42,7 @@ public sealed class UserService : IUserService
         }
         catch (Exception e)
         {
-            _logger.LogError($"Something went wrong in the {nameof(GetUserById)} service method {ex}");
+            _logger.LogError($"Something went wrong in the {nameof(GetUserById)} service method {e}");
             throw;
         }
     }
@@ -59,7 +59,7 @@ public sealed class UserService : IUserService
         }
         catch (Exception e)
         {
-            _logger.LogError($"Something went wrong in the {nameof(GetUserByEmail)} service method {ex}");
+            _logger.LogError($"Something went wrong in the {nameof(GetUserByEmail)} service method {e}");
             throw;
         }
     }

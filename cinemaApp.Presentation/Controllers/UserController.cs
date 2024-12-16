@@ -23,7 +23,7 @@ public class UserController : ControllerBase
             return BadRequest("User data is null.");
         }
 
-        var createdUser = _service.UserService.CreateUser(userDto); 
+        var createdUser = _service.UserService.CreateUser(userDto);
         return CreatedAtRoute("GetUserById", new { id = createdUser.Uuid }, createdUser);
     }
 
@@ -40,9 +40,9 @@ public class UserController : ControllerBase
 
             return Ok(user);
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            return StatusCode(500, "Internal Server Error");
+            return StatusCode(500, "Internal Server Error: " + e);
         }
     }
 

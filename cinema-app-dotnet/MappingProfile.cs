@@ -11,5 +11,6 @@ public class MappingProfile : Profile
         CreateMap<Like, LikeDto>();
 
         CreateMap<UserForCreationDto, User>();
+        CreateMap<UserCinemaDto, UserCinema>();
     }
 }

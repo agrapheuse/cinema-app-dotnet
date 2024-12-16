@@ -8,3 +8,5 @@ using System.Threading.Tasks;
 namespace Shared.DataTransferObjects;
 
 public record UserForCreationDto(string Email, string FullName);
+
+public record LikeForCreationDto(string MovieUuid, string UserUuid);
