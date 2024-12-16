@@ -31,4 +31,29 @@ public class CinemaController : ControllerBase
             return StatusCode(500, "Internal Server Error");
         }
     }
+
+    [HttpGet("userPreference/{uuid}")]
+    public IActionResult GetUserPreference(string uuid)
+    {
+        try
+        {
+            var cinemas = _service.CinemaService.GetUserPreference(Guid.Parse(uuid), trackChanges: false);
+            if (cinemas == null)
+            {
+                return NotFound();
+            }
+            return Ok(cinemas);
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    [HttpPost("userPreference/{userId}/{cinemaId}")]
+    public IActionResult CreateUserPreference(string userId, string cinemaId)
+    {
+        return StatusCode(500, "Internal Server Error");
+    }
+
 }

@@ -30,3 +30,8 @@ public record CinemaDto(
     string? Country,
     string? City
     );
+
+public record UserCinemaDto(
+    string UserId,
+    string CinemaId
+);
