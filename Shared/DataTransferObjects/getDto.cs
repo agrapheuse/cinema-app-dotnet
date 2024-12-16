@@ -1,17 +1,15 @@
 ﻿namespace Shared.DataTransferObjects;
 
 public record MovieDto(
-    Guid Id, 
-    string Title, 
-    string? Director, 
-    string? Category, 
-    string? Description, 
-    string Cinema, 
-    string Country, 
-    string City, 
-    DateTime DateTime, 
-    string ImageUrl, 
-    string InfoLink, 
+    Guid Id,
+    string Title,
+    string? Director,
+    string? Category,
+    string? Description,
+    Guid CinemaId,
+    DateTime DateTime,
+    string ImageUrl,
+    string InfoLink,
     string? TicketLink
     );
 
@@ -25,4 +23,10 @@ public record UserDto(
     Guid Uuid,
     string Email,
     string? FullName
+    );
+
+public record CinemaDto(
+    string? Name,
+    string? Country,
+    string? City
     );

@@ -32,9 +32,7 @@ public sealed class MovieService : IMovieService
                 m.Director ?? string.Empty, 
                 m.Category ?? string.Empty, 
                 m.Description ?? string.Empty,
-                m.Cinema, 
-                m.Country, 
-                m.City, 
+                m.Cinema.Uuid, 
                 m.DateTime, 
                 m.ImageUrl, 
                 m.InfoLink, 
@@ -61,9 +59,7 @@ public sealed class MovieService : IMovieService
                 m.Director ?? string.Empty,
                 m.Category ?? string.Empty,
                 m.Description ?? string.Empty,
-                m.Cinema,
-                m.Country,
-                m.City,
+                m.Cinema.Uuid,
                 m.DateTime,
                 m.ImageUrl,
                 m.InfoLink,
@@ -90,9 +86,7 @@ public sealed class MovieService : IMovieService
                 movie.Director ?? string.Empty,
                 movie.Category ?? string.Empty,
                 movie.Description ?? string.Empty,
-                movie.Cinema,
-                movie.Country,
-                movie.City,
+                movie.Cinema.Uuid,
                 movie.DateTime,
                 movie.ImageUrl,
                 movie.InfoLink,
@@ -102,20 +96,6 @@ public sealed class MovieService : IMovieService
         catch (Exception ex)
         {
             _logger.LogError($"Something went wrong in the {nameof(GetMovieById)} service method {ex}");
-            throw;
-        }
-    }
-
-    public IEnumerable<string> GetAllCinemas(string city, bool trackChanges)
-    {
-        try
-        {
-            var cinemas = _repository.Movie.GetAllCinemas(city, trackChanges);
-            return cinemas;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError($"Something went wrong in the {nameof(GetAllCinemas)} service method {ex}");
             throw;
         }
     }

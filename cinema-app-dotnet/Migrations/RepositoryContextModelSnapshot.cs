@@ -19,6 +19,36 @@ namespace cinemaApp.Migrations
                 .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("Entities.Models.Cinema", b =>
+                {
+                    b.Property<Guid>("Uuid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)")
+                        .HasColumnName("uuid");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("city");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("country");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("name");
+
+                    b.HasKey("Uuid");
+
+                    b.ToTable("Cinema");
+                });
+
             modelBuilder.Entity("Entities.Models.Like", b =>
                 {
                     b.Property<Guid>("Uuid")
@@ -53,23 +83,8 @@ namespace cinemaApp.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("category");
 
-                    b.Property<string>("Cinema")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("cinema");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("city");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("country");
+                    b.Property<Guid>("CinemaId")
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime(6)")
@@ -108,6 +123,8 @@ namespace cinemaApp.Migrations
                         .HasColumnName("title");
 
                     b.HasKey("Uuid");
+
+                    b.HasIndex("CinemaId");
 
                     b.ToTable("Movies");
                 });
@@ -151,6 +168,17 @@ namespace cinemaApp.Migrations
                     b.Navigation("Movie");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Entities.Models.Movie", b =>
+                {
+                    b.HasOne("Entities.Models.Cinema", "Cinema")
+                        .WithMany()
+                        .HasForeignKey("CinemaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cinema");
                 });
 #pragma warning restore 612, 618
         }

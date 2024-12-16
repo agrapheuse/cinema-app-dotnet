@@ -61,22 +61,4 @@ public class MovieController : ControllerBase
         }
     }
 
-    [HttpGet("cinemas/{city}")]
-    public IActionResult GetCinemasByCity(string city)
-    {
-        try
-        {
-            var cinemas = _service.MovieService.GetAllCinemas(city, trackChanges: false);
-            if (cinemas == null)
-            {
-                return NotFound();
-            }
-            return Ok(cinemas);
-        }
-        catch (Exception)
-        {
-            return StatusCode(500, "Internal Server Error");
-        }
-    }
-
 }

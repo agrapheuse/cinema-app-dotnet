@@ -8,6 +8,5 @@ namespace Service.Contracts
         IEnumerable<MovieDto> GetAllMovies(bool trackChanges);
         IEnumerable<MovieDto> GetMoviesForCity(string city, bool trackChanges);
         MovieDto GetMovieById(Guid guid, bool trackChanges);
-        IEnumerable<string> GetAllCinemas(string city, bool trackChanges);
     }
 }
