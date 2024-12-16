@@ -30,20 +30,9 @@ public class Movie
     [Column("description")]
     public string? Description { get; set; }
 
-    [Required(ErrorMessage = "Cinema is a required field.")]
-    [MaxLength(255, ErrorMessage = "Maximum length for the Cinema is 255 characters.")]
-    [Column("cinema")]
-    public string? Cinema { get; set; }
-
-    [Required(ErrorMessage = "Country is a required field.")]
-    [MaxLength(255, ErrorMessage = "Maximum length for the Country is 255 characters.")]
-    [Column("country")]
-    public string? Country { get; set; }
-
-    [Required(ErrorMessage = "City is a required field.")]
-    [MaxLength(255, ErrorMessage = "Maximum length for the City is 255 characters.")]
-    [Column("city")]
-    public string? City { get; set; }
+    [ForeignKey(nameof(Cinema))]
+    public Guid CinemaId { get; set; }
+    public Cinema? Cinema { get; set; }
 
     [Required(ErrorMessage = "Date and Time is a required field.")]
     [Column("date_time")]

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace cinemaApp.Migrations
 {
     /// <inheritdoc />
-    public partial class DBCreation : Migration
+    public partial class DatabaseCreation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,25 +15,17 @@ namespace cinemaApp.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Movies",
+                name: "Cinema",
                 columns: table => new
                 {
                     uuid = table.Column<Guid>(type: "char(36)", nullable: false),
-                    title = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
-                    director = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
-                    category = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
-                    description = table.Column<string>(type: "longtext", nullable: true),
-                    cinema = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    name = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     country = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
-                    city = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
-                    date_time = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    image_url = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
-                    info_link = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
-                    ticket_link = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
+                    city = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Movies", x => x.uuid);
+                    table.PrimaryKey("PK_Cinema", x => x.uuid);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -48,6 +40,33 @@ namespace cinemaApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.uuid);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Movies",
+                columns: table => new
+                {
+                    uuid = table.Column<Guid>(type: "char(36)", nullable: false),
+                    title = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    director = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    category = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    description = table.Column<string>(type: "longtext", nullable: true),
+                    CinemaId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    date_time = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    image_url = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    info_link = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    ticket_link = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Movies", x => x.uuid);
+                    table.ForeignKey(
+                        name: "FK_Movies_Cinema_CinemaId",
+                        column: x => x.CinemaId,
+                        principalTable: "Cinema",
+                        principalColumn: "uuid",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -86,6 +105,11 @@ namespace cinemaApp.Migrations
                 name: "IX_Likes_UserId",
                 table: "Likes",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Movies_CinemaId",
+                table: "Movies",
+                column: "CinemaId");
         }
 
         /// <inheritdoc />
@@ -99,6 +123,9 @@ namespace cinemaApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Cinema");
         }
     }
 }

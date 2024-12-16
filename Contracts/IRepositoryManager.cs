@@ -11,6 +11,7 @@ public interface IRepositoryManager
     IMovieRepository Movie {  get; }
     ILikeRepository Like { get; }
     IUserRepository User { get; }
+    ICinemaRepository Cinema { get; }
 
     void Save();
 }
