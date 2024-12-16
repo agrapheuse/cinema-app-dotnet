@@ -4,5 +4,5 @@ namespace Service.Contracts;
 
 public interface ICinemaService
 {
-    CinemaDto GetCinemaByCity(string city, bool trackChanges);
+    IEnumerable<CinemaDto> GetCinemaByCity(string city, bool trackChanges);
 }

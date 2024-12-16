@@ -5,7 +5,7 @@ namespace cinemaApp.Presentation.Controllers;
 
 [Route("api/cinemas")]
 [ApiController]
-class CinemaController : ControllerBase
+public class CinemaController : ControllerBase
 {
     private readonly IServiceManager _service;
 
@@ -19,7 +19,7 @@ class CinemaController : ControllerBase
     {
         try
         {
-            var cinemas = _service.CinemaService.GetAllCinemas(city, trackChanges: false);
+            var cinemas = _service.CinemaService.GetCinemaByCity(city, trackChanges: false);
             if (cinemas == null)
             {
                 return NotFound();

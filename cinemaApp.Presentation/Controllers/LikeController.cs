@@ -1,17 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace cinemaApp.Presentation.Controllers;
 
 [Route("api/likes")]
 [ApiController]
-class LikeController : ControllerBase
+public class LikeController : ControllerBase
 {
     private readonly IServiceManager _service;
 

@@ -1,6 +1,7 @@
-﻿using Contracts;
+﻿using AutoMapper;
+using Contracts;
+using Entities.Models;
 using Service.Contracts;
-using AutoMapper;
 using Shared.DataTransferObjects;
 
 namespace Service;
@@ -61,6 +62,12 @@ internal sealed class LikeService : ILikeService
 
     public LikeDto CreateLike(LikeForCreationDto likeDto)
     {
-        throw new NotImplementedException();
+        var LikeEntity = _mapper.Map<Like>(likeDto);
+
+        _repository.Like.CreateLike(LikeEntity);
+        _repository.Save();
+
+        var likeToReturn = _mapper.Map<LikeDto>(LikeEntity);
+        return likeToReturn;
     }
 }

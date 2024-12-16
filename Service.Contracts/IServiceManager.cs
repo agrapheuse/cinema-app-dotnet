@@ -5,6 +5,6 @@
         IMovieService MovieService { get; }
         ILikeService LikeService { get; }
         IUserService UserService { get; }
-        ICinemaService cinemaService { get; }
+        ICinemaService CinemaService { get; }
     }
 }
