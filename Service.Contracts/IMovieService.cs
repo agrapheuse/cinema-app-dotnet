@@ -1,5 +1,4 @@
-﻿using Entities.Models;
-using Shared.DataTransferObjects;
+﻿using Shared.DataTransferObjects;
 
 namespace Service.Contracts
 {
@@ -8,5 +7,6 @@ namespace Service.Contracts
         IEnumerable<MovieDto> GetAllMovies(bool trackChanges);
         IEnumerable<MovieDto> GetMoviesForCity(string city, bool trackChanges);
         MovieDto GetMovieById(Guid guid, bool trackChanges);
+        IEnumerable<MovieDto> GetLikesOfUser(Guid userId, bool trackChanges);
     }
 }

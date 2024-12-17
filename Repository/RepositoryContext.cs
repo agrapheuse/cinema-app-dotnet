@@ -13,6 +13,24 @@ public class RepositoryContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new CinemaConfiguration());
+
+        modelBuilder.Entity<UserCinema>()
+            .HasKey(uc => new { uc.UserId, uc.CinemaId });
+
+        modelBuilder.Entity<UserCinema>()
+            .HasOne(uc => uc.User)
+            .WithMany(u => u.UserCinemas)
+            .HasForeignKey(uc => uc.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Like>()
+            .HasKey(li => new { li.UserId, li.MovieId });
+
+        modelBuilder.Entity<Like>()
+            .HasOne(li => li.User)
+            .WithMany(u => u.Like)
+            .HasForeignKey(li => li.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 
     public DbSet<Movie>? Movies { get; set; }
