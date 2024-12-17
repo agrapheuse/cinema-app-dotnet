@@ -1,14 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Models;
 
 public class Like
 {
-    [Key]
-    [Column("uuid")]
-    public Guid Uuid { get; set; }
-
     [ForeignKey(nameof(Movie))]
     public Guid MovieId { get; set; }
     public Movie? Movie { get; set; }

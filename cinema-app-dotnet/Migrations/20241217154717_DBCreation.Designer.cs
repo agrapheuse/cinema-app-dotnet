@@ -11,7 +11,7 @@ using Repository;
 namespace cinemaApp.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20241217152647_DBCreation")]
+    [Migration("20241217154717_DBCreation")]
     partial class DBCreation
     {
         /// <inheritdoc />
@@ -77,22 +77,15 @@ namespace cinemaApp.Migrations
 
             modelBuilder.Entity("Entities.Models.Like", b =>
                 {
-                    b.Property<Guid>("Uuid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)")
-                        .HasColumnName("uuid");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
 
                     b.Property<Guid>("MovieId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Uuid");
+                    b.HasKey("UserId", "MovieId");
 
                     b.HasIndex("MovieId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Likes");
                 });
@@ -201,7 +194,7 @@ namespace cinemaApp.Migrations
                         .IsRequired();
 
                     b.HasOne("Entities.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Like")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -243,6 +236,8 @@ namespace cinemaApp.Migrations
 
             modelBuilder.Entity("Entities.Models.User", b =>
                 {
+                    b.Navigation("Like");
+
                     b.Navigation("UserCinemas");
                 });
 #pragma warning restore 612, 618

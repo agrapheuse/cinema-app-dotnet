@@ -61,4 +61,17 @@ public class MovieController : ControllerBase
         }
     }
 
+    [HttpGet("user/{uuid}")]
+    public IActionResult GetLikesOfUser(string uuid)
+    {
+        try
+        {
+            var movies = _service.MovieService.GetLikesOfUser(Guid.Parse(uuid), trackChanges: false);
+            return Ok(movies);
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
 }

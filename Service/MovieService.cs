@@ -1,8 +1,6 @@
-﻿using Contracts;
-using Entities.Models;
+﻿using AutoMapper;
+using Contracts;
 using Service.Contracts;
-using System;
-using AutoMapper;
 using Shared.DataTransferObjects;
 
 namespace Service;
@@ -27,15 +25,15 @@ public sealed class MovieService : IMovieService
             var movies = _repository.Movie.GetAllMovies(trackChanges);
 
             var movieDtos = movies.Select(m => new MovieDto(
-                m.Uuid, 
-                m.Title, 
-                m.Director ?? string.Empty, 
-                m.Category ?? string.Empty, 
+                m.Uuid,
+                m.Title,
+                m.Director ?? string.Empty,
+                m.Category ?? string.Empty,
                 m.Description ?? string.Empty,
-                m.Cinema.Uuid, 
-                m.DateTime, 
-                m.ImageUrl, 
-                m.InfoLink, 
+                m.Cinema.Uuid,
+                m.DateTime,
+                m.ImageUrl,
+                m.InfoLink,
                 m.TicketLink ?? string.Empty
                 )).ToList();
 
@@ -96,6 +94,33 @@ public sealed class MovieService : IMovieService
         catch (Exception ex)
         {
             _logger.LogError($"Something went wrong in the {nameof(GetMovieById)} service method {ex}");
+            throw;
+        }
+    }
+
+    public IEnumerable<MovieDto> GetLikesOfUser(Guid userId, bool trackChanges)
+    {
+        try
+        {
+            var movies = _repository.Like.GetLikeOfUser(userId, trackChanges);
+            var movieDtos = movies.Select(m => new MovieDto(
+                m.Uuid,
+                m.Title,
+                m.Director ?? string.Empty,
+                m.Category ?? string.Empty,
+                m.Description ?? string.Empty,
+                m.Cinema.Uuid,
+                m.DateTime,
+                m.ImageUrl,
+                m.InfoLink,
+                m.TicketLink ?? string.Empty
+            )).ToList();
+
+            return movieDtos;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Something went wrong in the {nameof(GetLikesOfUser)} service method {ex}");
             throw;
         }
     }

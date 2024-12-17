@@ -21,12 +21,12 @@ public sealed class UserService : IUserService
 
     public UserDto CreateUser(UserForCreationDto user)
     {
-        var UserEntity = _mapper.Map<User>(user); 
-        
+        var UserEntity = _mapper.Map<User>(user);
+
         _repository.User.CreateUser(UserEntity);
-        _repository.Save(); 
-        
-        var userToReturn = _mapper.Map<UserDto>(UserEntity); 
+        _repository.Save();
+
+        var userToReturn = _mapper.Map<UserDto>(UserEntity);
         return userToReturn;
     }
 
@@ -60,6 +60,29 @@ public sealed class UserService : IUserService
         catch (Exception e)
         {
             _logger.LogError($"Something went wrong in the {nameof(GetUserByEmail)} service method {e}");
+            throw;
+        }
+    }
+    public LikeDto CreateLike(LikeDto likeDto)
+    {
+        var likeEntity = _mapper.Map<Like>(likeDto);
+
+        _repository.Like.CreateLike(likeEntity);
+        _repository.Save();
+
+        return likeDto;
+    }
+
+    public bool IsMovieLikedByUser(Guid userId, Guid movieId, bool trackChanges)
+    {
+        try
+        {
+            var isLiked = _repository.Like.IsMovieLikedByUser(userId, movieId, trackChanges);
+            return isLiked;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Something went wrong in the {nameof(IsMovieLikedByUser)} service method {ex}");
             throw;
         }
     }

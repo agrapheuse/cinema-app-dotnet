@@ -63,4 +63,31 @@ public class UserController : ControllerBase
             return StatusCode(500, "Internal Server Error");
         }
     }
+
+    [HttpGet("user{userUuid}/movie/{movieUuid}")]
+    public IActionResult IsMovieLikedByUser(string userUuid, string movieUuid)
+    {
+        try
+        {
+            var isLiked = _service.UserService.IsMovieLikedByUser(Guid.Parse(userUuid), Guid.Parse(movieUuid), trackChanges: false);
+            return Ok(isLiked);
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    [HttpPost]
+    public IActionResult CreateLike([FromBody] LikeDto likeDto)
+    {
+        if (likeDto is null)
+        {
+            return BadRequest("Like data is null.");
+        }
+
+        var createdLike = _service.UserService.CreateLike(likeDto);
+        return Created();
+    }
+
 }

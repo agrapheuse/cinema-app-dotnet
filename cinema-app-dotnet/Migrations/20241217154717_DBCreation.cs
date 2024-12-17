@@ -101,13 +101,12 @@ namespace cinemaApp.Migrations
                 name: "Likes",
                 columns: table => new
                 {
-                    uuid = table.Column<Guid>(type: "char(36)", nullable: false),
                     MovieId = table.Column<Guid>(type: "char(36)", nullable: false),
                     UserId = table.Column<Guid>(type: "char(36)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Likes", x => x.uuid);
+                    table.PrimaryKey("PK_Likes", x => new { x.UserId, x.MovieId });
                     table.ForeignKey(
                         name: "FK_Likes_Movies_MovieId",
                         column: x => x.MovieId,
@@ -137,11 +136,6 @@ namespace cinemaApp.Migrations
                 name: "IX_Likes_MovieId",
                 table: "Likes",
                 column: "MovieId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Likes_UserId",
-                table: "Likes",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Movies_CinemaId",

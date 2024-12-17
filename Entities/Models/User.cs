@@ -18,5 +18,7 @@ public class User
     [Column("fullName")]
     public string? FullName { get; set; }
 
+    public ICollection<Like>? Like { get; set; }
+
     public ICollection<UserCinema>? UserCinemas { get; set; }
 }

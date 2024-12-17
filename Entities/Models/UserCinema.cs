@@ -2,7 +2,7 @@
 
 namespace Entities.Models;
 
-public class UserCinema // user preference for certain cinemas
+public class UserCinema
 {
     [ForeignKey(nameof(User))]
     public Guid UserId { get; set; }
