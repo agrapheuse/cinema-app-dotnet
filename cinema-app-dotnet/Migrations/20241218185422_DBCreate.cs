@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace cinemaApp.Migrations
 {
     /// <inheritdoc />
-    public partial class DBCreation : Migration
+    public partial class DBCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

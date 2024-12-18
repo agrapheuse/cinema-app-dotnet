@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Models;
 
@@ -51,4 +46,6 @@ public class Movie
     [MaxLength(255, ErrorMessage = "Maximum length for the Ticket Link is 255 characters.")]
     [Column("ticket_link")]
     public string? TicketLink { get; set; }
+
+    public ICollection<Like>? Like { get; set; }
 }

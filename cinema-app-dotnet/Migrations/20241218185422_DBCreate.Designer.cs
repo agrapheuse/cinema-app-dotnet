@@ -11,8 +11,8 @@ using Repository;
 namespace cinemaApp.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20241217154717_DBCreation")]
-    partial class DBCreation
+    [Migration("20241218185422_DBCreate")]
+    partial class DBCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -188,7 +188,7 @@ namespace cinemaApp.Migrations
             modelBuilder.Entity("Entities.Models.Like", b =>
                 {
                     b.HasOne("Entities.Models.Movie", "Movie")
-                        .WithMany()
+                        .WithMany("Like")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -232,6 +232,11 @@ namespace cinemaApp.Migrations
                     b.Navigation("Cinema");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Entities.Models.Movie", b =>
+                {
+                    b.Navigation("Like");
                 });
 
             modelBuilder.Entity("Entities.Models.User", b =>

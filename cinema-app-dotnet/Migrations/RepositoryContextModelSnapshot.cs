@@ -185,7 +185,7 @@ namespace cinemaApp.Migrations
             modelBuilder.Entity("Entities.Models.Like", b =>
                 {
                     b.HasOne("Entities.Models.Movie", "Movie")
-                        .WithMany()
+                        .WithMany("Like")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -229,6 +229,11 @@ namespace cinemaApp.Migrations
                     b.Navigation("Cinema");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Entities.Models.Movie", b =>
+                {
+                    b.Navigation("Like");
                 });
 
             modelBuilder.Entity("Entities.Models.User", b =>

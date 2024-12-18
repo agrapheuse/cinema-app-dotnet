@@ -63,6 +63,20 @@ public sealed class UserService : IUserService
             throw;
         }
     }
+
+    public bool IsUser(string email, bool trackChanges)
+    {
+        try
+        {
+            return _repository.User.IsUser(email, trackChanges);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError($"Something went wrong in the {nameof(IsUser)} service method {e}");
+            throw;
+        }
+    }
+
     public LikeDto CreateLike(LikeDto likeDto)
     {
         var likeEntity = _mapper.Map<Like>(likeDto);

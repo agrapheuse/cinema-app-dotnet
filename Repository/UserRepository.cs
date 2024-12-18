@@ -17,5 +17,11 @@ public class UserRepository : RepositoryBase<User>, IUserRepository
     public User GetUserByEmail(string email, bool trackChanges) =>
         FindByCondition(user => user.Email == email, trackChanges).FirstOrDefault();
 
+    public bool IsUser(string email, bool trackChanges)
+    {
+        var user = FindByCondition(user => user.Email == email, trackChanges).FirstOrDefault();
+        return user != null;
+    }
+
     public void CreateUser(User user) => Create(user);
 }

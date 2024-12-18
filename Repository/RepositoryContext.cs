@@ -31,6 +31,12 @@ public class RepositoryContext : DbContext
             .WithMany(u => u.Like)
             .HasForeignKey(li => li.UserId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Like>()
+            .HasOne(li => li.Movie)
+            .WithMany(m => m.Like)
+            .HasForeignKey(li => li.MovieId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 
     public DbSet<Movie>? Movies { get; set; }
