@@ -26,6 +26,7 @@ public sealed class CinemaService : ICinemaService
             var cinemas = _repository.Cinema.geCinemasOfCity(city, trackChanges);
 
             var cinemaDtos = cinemas.Select(c => new CinemaDto(
+                c.Uuid,
                 c.Name,
                 c.Country,
                 c.City
@@ -47,6 +48,7 @@ public sealed class CinemaService : ICinemaService
             var cinemas = _repository.UserCinema.GetUserPreference(userId, trackChanges);
 
             var cinemaDtos = cinemas.Select(c => new CinemaDto(
+                c.Uuid,
                 c.Name,
                 c.Country,
                 c.City

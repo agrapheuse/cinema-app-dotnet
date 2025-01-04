@@ -24,7 +24,7 @@ public class RepositoryContext : DbContext
             .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Like>()
-            .HasKey(li => new { li.UserId, li.MovieId });
+            .HasKey(li => new { li.UserId, MovieId = li.ShowingId });
 
         modelBuilder.Entity<Like>()
             .HasOne(li => li.User)
@@ -33,12 +33,13 @@ public class RepositoryContext : DbContext
             .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Like>()
-            .HasOne(li => li.Movie)
+            .HasOne(li => li.Showing)
             .WithMany(m => m.Like)
-            .HasForeignKey(li => li.MovieId)
+            .HasForeignKey(li => li.ShowingId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 
+    public DbSet<Showing>? Showings { get; set; }
     public DbSet<Movie>? Movies { get; set; }
     public DbSet<Like>? Likes { get; set; }
     public DbSet<User>? Users { get; set; }

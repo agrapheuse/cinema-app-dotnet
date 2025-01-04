@@ -11,11 +11,13 @@ public class MovieRepository : RepositoryBase<Movie>, IMovieRepository
     }
 
     public IEnumerable<Movie> GetAllMovies(bool trackChanges) =>
-        FindAll(trackChanges).Include(movie => movie.Cinema);
+        FindAll(trackChanges).Include(movie => movie.Showings);
+
     public IEnumerable<Movie> GetMoviesForCity(string city, bool trackChanges) =>
-        FindByCondition(movie => movie.Cinema.City == city, trackChanges)
-            .Include(movie => movie.Cinema)
-            .OrderBy(movie => movie.DateTime);
+        FindByCondition(movie => movie.Showings.Any(showing => showing.Cinema.City == city), trackChanges)
+            .Include(movie => movie.Showings)
+            .ThenInclude(showing => showing.Cinema)
+            .ToList();
 
     public Movie GetMovieById(Guid guid, bool trackChanges) =>
         FindByCondition(movie => movie.Uuid == guid, trackChanges).FirstOrDefault();

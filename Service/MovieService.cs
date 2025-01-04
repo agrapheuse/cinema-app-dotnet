@@ -24,18 +24,26 @@ public sealed class MovieService : IMovieService
         {
             var movies = _repository.Movie.GetAllMovies(trackChanges);
 
-            var movieDtos = movies.Select(m => new MovieDto(
-                m.Uuid,
-                m.Title,
-                m.Director ?? string.Empty,
-                m.Category ?? string.Empty,
-                m.Description ?? string.Empty,
-                m.Cinema.Uuid,
-                m.DateTime,
-                m.ImageUrl,
-                m.InfoLink,
-                m.TicketLink ?? string.Empty
-                )).ToList();
+            var movieDtos = movies.Select(movie => new MovieDto(
+                movie.Uuid,
+                movie.Title,
+                movie.Director ?? string.Empty,
+                movie.Category ?? string.Empty,
+                movie.Description ?? string.Empty,
+                "image_url_placeholder",
+                movie.Showings.Select(showing => new ShowingDto(
+                    showing.Uuid,
+                    showing.DateTime,
+                    showing.InfoLink ?? string.Empty,
+                    showing.TicketLink,
+                    new CinemaDto(
+                        showing.Cinema.Uuid,
+                        showing.Cinema.Name,
+                        showing.Cinema.Country,
+                        showing.Cinema.City
+                    )
+                )).ToList()
+            )).ToList();
 
             return movieDtos;
         }
@@ -51,24 +59,33 @@ public sealed class MovieService : IMovieService
         try
         {
             var movies = _repository.Movie.GetMoviesForCity(city, trackChanges);
-            var movieDtos = movies.Select(m => new MovieDto(
-                m.Uuid,
-                m.Title,
-                m.Director ?? string.Empty,
-                m.Category ?? string.Empty,
-                m.Description ?? string.Empty,
-                m.Cinema.Uuid,
-                m.DateTime,
-                m.ImageUrl,
-                m.InfoLink,
-                m.TicketLink ?? string.Empty
+
+            var movieDtos = movies.Select(movie => new MovieDto(
+                movie.Uuid,
+                movie.Title,
+                movie.Director ?? string.Empty,
+                movie.Category ?? string.Empty,
+                movie.Description ?? string.Empty,
+                "image_url_placeholder",
+                movie.Showings.Select(showing => new ShowingDto(
+                    showing.Uuid,
+                    showing.DateTime,
+                    showing.InfoLink ?? string.Empty,
+                    showing.TicketLink,
+                    new CinemaDto(
+                        showing.Cinema.Uuid,
+                        showing.Cinema.Name,
+                        showing.Cinema.Country,
+                        showing.Cinema.City
+                    )
+                )).ToList()
             )).ToList();
 
             return movieDtos;
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Something went wrong in the {nameof(GetMoviesForCity)} service method {ex}");
+            _logger.LogError($"An error occurred in the {nameof(GetAllMovies)} service method: {ex}");
             throw;
         }
     }
@@ -78,49 +95,31 @@ public sealed class MovieService : IMovieService
         try
         {
             var movie = _repository.Movie.GetMovieById(guid, trackChanges);
+
             return new MovieDto(
                 movie.Uuid,
                 movie.Title,
                 movie.Director ?? string.Empty,
                 movie.Category ?? string.Empty,
                 movie.Description ?? string.Empty,
-                movie.Cinema.Uuid,
-                movie.DateTime,
-                movie.ImageUrl,
-                movie.InfoLink,
-                movie.TicketLink ?? string.Empty
-                );
+                "image_url_placeholder",
+                movie.Showings.Select(showing => new ShowingDto(
+                    showing.Uuid,
+                    showing.DateTime,
+                    showing.InfoLink ?? string.Empty,
+                    showing.TicketLink,
+                    new CinemaDto(
+                        showing.Cinema.Uuid,
+                        showing.Cinema.Name,
+                        showing.Cinema.Country,
+                        showing.Cinema.City
+                    )
+                )).ToList()
+            );
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Something went wrong in the {nameof(GetMovieById)} service method {ex}");
-            throw;
-        }
-    }
-
-    public IEnumerable<MovieDto> GetLikesOfUser(Guid userId, bool trackChanges)
-    {
-        try
-        {
-            var movies = _repository.Like.GetLikeOfUser(userId, trackChanges);
-            var movieDtos = movies.Select(m => new MovieDto(
-                m.Uuid,
-                m.Title,
-                m.Director ?? string.Empty,
-                m.Category ?? string.Empty,
-                m.Description ?? string.Empty,
-                m.Cinema.Uuid,
-                m.DateTime,
-                m.ImageUrl,
-                m.InfoLink,
-                m.TicketLink ?? string.Empty
-            )).ToList();
-
-            return movieDtos;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError($"Something went wrong in the {nameof(GetLikesOfUser)} service method {ex}");
+            _logger.LogError($"An error occurred in the {nameof(GetAllMovies)} service method: {ex}");
             throw;
         }
     }

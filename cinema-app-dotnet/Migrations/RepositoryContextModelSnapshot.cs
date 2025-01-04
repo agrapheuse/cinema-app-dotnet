@@ -77,12 +77,12 @@ namespace cinemaApp.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("MovieId")
+                    b.Property<Guid>("ShowingId")
                         .HasColumnType("char(36)");
 
-                    b.HasKey("UserId", "MovieId");
+                    b.HasKey("UserId", "ShowingId");
 
-                    b.HasIndex("MovieId");
+                    b.HasIndex("ShowingId");
 
                     b.ToTable("Likes");
                 });
@@ -99,13 +99,6 @@ namespace cinemaApp.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("category");
 
-                    b.Property<Guid>("CinemaId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("date_time");
-
                     b.Property<string>("Description")
                         .HasColumnType("longtext")
                         .HasColumnName("description");
@@ -115,23 +108,6 @@ namespace cinemaApp.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("director");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("image_url");
-
-                    b.Property<string>("InfoLink")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("info_link");
-
-                    b.Property<string>("TicketLink")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("ticket_link");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -140,9 +116,44 @@ namespace cinemaApp.Migrations
 
                     b.HasKey("Uuid");
 
+                    b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("Entities.Models.Showing", b =>
+                {
+                    b.Property<Guid>("Uuid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)")
+                        .HasColumnName("uuid");
+
+                    b.Property<Guid>("CinemaId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("date_time");
+
+                    b.Property<string>("InfoLink")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("info_link");
+
+                    b.Property<Guid?>("MovieUuid")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("TicketLink")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("ticket_link");
+
+                    b.HasKey("Uuid");
+
                     b.HasIndex("CinemaId");
 
-                    b.ToTable("Movies");
+                    b.HasIndex("MovieUuid");
+
+                    b.ToTable("Showings");
                 });
 
             modelBuilder.Entity("Entities.Models.User", b =>
@@ -184,9 +195,9 @@ namespace cinemaApp.Migrations
 
             modelBuilder.Entity("Entities.Models.Like", b =>
                 {
-                    b.HasOne("Entities.Models.Movie", "Movie")
+                    b.HasOne("Entities.Models.Showing", "Showing")
                         .WithMany("Like")
-                        .HasForeignKey("MovieId")
+                        .HasForeignKey("ShowingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -196,18 +207,22 @@ namespace cinemaApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Movie");
+                    b.Navigation("Showing");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Entities.Models.Movie", b =>
+            modelBuilder.Entity("Entities.Models.Showing", b =>
                 {
                     b.HasOne("Entities.Models.Cinema", "Cinema")
                         .WithMany()
                         .HasForeignKey("CinemaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Entities.Models.Movie", null)
+                        .WithMany("Showings")
+                        .HasForeignKey("MovieUuid");
 
                     b.Navigation("Cinema");
                 });
@@ -232,6 +247,11 @@ namespace cinemaApp.Migrations
                 });
 
             modelBuilder.Entity("Entities.Models.Movie", b =>
+                {
+                    b.Navigation("Showings");
+                });
+
+            modelBuilder.Entity("Entities.Models.Showing", b =>
                 {
                     b.Navigation("Like");
                 });

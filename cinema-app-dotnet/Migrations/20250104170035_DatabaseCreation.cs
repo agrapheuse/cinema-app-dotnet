@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace cinemaApp.Migrations
 {
     /// <inheritdoc />
-    public partial class DBCreate : Migration
+    public partial class DatabaseCreation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,6 +32,22 @@ namespace cinemaApp.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Movies",
+                columns: table => new
+                {
+                    uuid = table.Column<Guid>(type: "char(36)", nullable: false),
+                    title = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    director = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    category = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    description = table.Column<string>(type: "longtext", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Movies", x => x.uuid);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -46,29 +62,30 @@ namespace cinemaApp.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Movies",
+                name: "Showings",
                 columns: table => new
                 {
                     uuid = table.Column<Guid>(type: "char(36)", nullable: false),
-                    title = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
-                    director = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
-                    category = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
-                    description = table.Column<string>(type: "longtext", nullable: true),
                     CinemaId = table.Column<Guid>(type: "char(36)", nullable: false),
                     date_time = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    image_url = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     info_link = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
-                    ticket_link = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
+                    ticket_link = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    MovieUuid = table.Column<Guid>(type: "char(36)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Movies", x => x.uuid);
+                    table.PrimaryKey("PK_Showings", x => x.uuid);
                     table.ForeignKey(
-                        name: "FK_Movies_Cinemas_CinemaId",
+                        name: "FK_Showings_Cinemas_CinemaId",
                         column: x => x.CinemaId,
                         principalTable: "Cinemas",
                         principalColumn: "uuid",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Showings_Movies_MovieUuid",
+                        column: x => x.MovieUuid,
+                        principalTable: "Movies",
+                        principalColumn: "uuid");
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -101,16 +118,16 @@ namespace cinemaApp.Migrations
                 name: "Likes",
                 columns: table => new
                 {
-                    MovieId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    ShowingId = table.Column<Guid>(type: "char(36)", nullable: false),
                     UserId = table.Column<Guid>(type: "char(36)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Likes", x => new { x.UserId, x.MovieId });
+                    table.PrimaryKey("PK_Likes", x => new { x.UserId, x.ShowingId });
                     table.ForeignKey(
-                        name: "FK_Likes_Movies_MovieId",
-                        column: x => x.MovieId,
-                        principalTable: "Movies",
+                        name: "FK_Likes_Showings_ShowingId",
+                        column: x => x.ShowingId,
+                        principalTable: "Showings",
                         principalColumn: "uuid",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -133,14 +150,19 @@ namespace cinemaApp.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Likes_MovieId",
+                name: "IX_Likes_ShowingId",
                 table: "Likes",
-                column: "MovieId");
+                column: "ShowingId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Movies_CinemaId",
-                table: "Movies",
+                name: "IX_Showings_CinemaId",
+                table: "Showings",
                 column: "CinemaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Showings_MovieUuid",
+                table: "Showings",
+                column: "MovieUuid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserCinema_CinemaId",
@@ -158,13 +180,16 @@ namespace cinemaApp.Migrations
                 name: "UserCinema");
 
             migrationBuilder.DropTable(
-                name: "Movies");
+                name: "Showings");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Cinemas");
+
+            migrationBuilder.DropTable(
+                name: "Movies");
         }
     }
 }

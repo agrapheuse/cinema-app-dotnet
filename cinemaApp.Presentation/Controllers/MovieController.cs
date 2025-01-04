@@ -22,9 +22,9 @@ public class MovieController : ControllerBase
             var movies = _service.MovieService.GetAllMovies(trackChanges: false).Take(10);
             return Ok(movies);
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            return StatusCode(500, "Internal Server Error");
+            return StatusCode(500, "Internal Server Error" + e);
         }
     }
 
@@ -54,20 +54,6 @@ public class MovieController : ControllerBase
                 return NotFound();
             }
             return Ok(movie);
-        }
-        catch (Exception)
-        {
-            return StatusCode(500, "Internal Server Error");
-        }
-    }
-
-    [HttpGet("user/{uuid}")]
-    public IActionResult GetLikesOfUser(string uuid)
-    {
-        try
-        {
-            var movies = _service.MovieService.GetLikesOfUser(Guid.Parse(uuid), trackChanges: false);
-            return Ok(movies);
         }
         catch (Exception)
         {

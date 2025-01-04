@@ -5,6 +5,7 @@ namespace Repository;
 public sealed class RepositoryManager : IRepositoryManager
 {
     private readonly RepositoryContext _repositoryContext;
+    private readonly Lazy<IMovieRepository> _newMovieRepository;
     private readonly Lazy<IMovieRepository> _movieRepository;
     private readonly Lazy<ILikeRepository> _likeRepository;
     private readonly Lazy<IUserRepository> _userRepository;
@@ -14,6 +15,10 @@ public sealed class RepositoryManager : IRepositoryManager
     public RepositoryManager(RepositoryContext repositoryContext)
     {
         _repositoryContext = repositoryContext;
+
+        _newMovieRepository = new Lazy<IMovieRepository>(
+            () => new MovieRepository(repositoryContext)
+        );
         _movieRepository = new Lazy<IMovieRepository>(
             () => new MovieRepository(repositoryContext)
             );
