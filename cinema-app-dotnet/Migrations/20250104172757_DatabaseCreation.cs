@@ -39,7 +39,8 @@ namespace cinemaApp.Migrations
                     title = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     director = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
                     category = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
-                    description = table.Column<string>(type: "longtext", nullable: true)
+                    description = table.Column<string>(type: "longtext", nullable: true),
+                    image_url = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -67,10 +68,10 @@ namespace cinemaApp.Migrations
                 {
                     uuid = table.Column<Guid>(type: "char(36)", nullable: false),
                     CinemaId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    MovieId = table.Column<Guid>(type: "char(36)", nullable: false),
                     date_time = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     info_link = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
-                    ticket_link = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
-                    MovieUuid = table.Column<Guid>(type: "char(36)", nullable: true)
+                    ticket_link = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,10 +83,11 @@ namespace cinemaApp.Migrations
                         principalColumn: "uuid",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Showings_Movies_MovieUuid",
-                        column: x => x.MovieUuid,
+                        name: "FK_Showings_Movies_MovieId",
+                        column: x => x.MovieId,
                         principalTable: "Movies",
-                        principalColumn: "uuid");
+                        principalColumn: "uuid",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -160,9 +162,9 @@ namespace cinemaApp.Migrations
                 column: "CinemaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Showings_MovieUuid",
+                name: "IX_Showings_MovieId",
                 table: "Showings",
-                column: "MovieUuid");
+                column: "MovieId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserCinema_CinemaId",

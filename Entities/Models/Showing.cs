@@ -13,6 +13,10 @@ public class Showing
     public Guid CinemaId { get; set; }
     public Cinema? Cinema { get; set; }
 
+    [ForeignKey(nameof(Movie))]
+    public Guid MovieId { get; set; }
+    public Movie? Movie { get; set; }
+
     [Required(ErrorMessage = "Date and Time is a required field.")]
     [Column("date_time")]
     public DateTime DateTime { get; set; }

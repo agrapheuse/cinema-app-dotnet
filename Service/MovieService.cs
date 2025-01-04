@@ -30,7 +30,7 @@ public sealed class MovieService : IMovieService
                 movie.Director ?? string.Empty,
                 movie.Category ?? string.Empty,
                 movie.Description ?? string.Empty,
-                "image_url_placeholder",
+                movie.ImageUrl ?? string.Empty,
                 movie.Showings.Select(showing => new ShowingDto(
                     showing.Uuid,
                     showing.DateTime,
@@ -66,7 +66,7 @@ public sealed class MovieService : IMovieService
                 movie.Director ?? string.Empty,
                 movie.Category ?? string.Empty,
                 movie.Description ?? string.Empty,
-                "image_url_placeholder",
+                movie.ImageUrl ?? string.Empty,
                 movie.Showings.Select(showing => new ShowingDto(
                     showing.Uuid,
                     showing.DateTime,
@@ -102,7 +102,7 @@ public sealed class MovieService : IMovieService
                 movie.Director ?? string.Empty,
                 movie.Category ?? string.Empty,
                 movie.Description ?? string.Empty,
-                "image_url_placeholder",
+                movie.ImageUrl ?? string.Empty,
                 movie.Showings.Select(showing => new ShowingDto(
                     showing.Uuid,
                     showing.DateTime,

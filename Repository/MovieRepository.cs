@@ -11,7 +11,10 @@ public class MovieRepository : RepositoryBase<Movie>, IMovieRepository
     }
 
     public IEnumerable<Movie> GetAllMovies(bool trackChanges) =>
-        FindAll(trackChanges).Include(movie => movie.Showings);
+        FindAll(trackChanges)
+            .Include(movie => movie.Showings)
+            .ThenInclude(showing => showing.Cinema)
+            .ToList();
 
     public IEnumerable<Movie> GetMoviesForCity(string city, bool trackChanges) =>
         FindByCondition(movie => movie.Showings.Any(showing => showing.Cinema.City == city), trackChanges)

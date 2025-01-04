@@ -25,5 +25,9 @@ public class Movie
     [Column("description")]
     public string? Description { get; set; }
 
+    [MaxLength(255, ErrorMessage = "Maximum length for the image url is 255 characters.")]
+    [Column("image_url")]
+    public string? ImageUrl { get; set; }
+
     public ICollection<Showing>? Showings { get; set; }
 }
