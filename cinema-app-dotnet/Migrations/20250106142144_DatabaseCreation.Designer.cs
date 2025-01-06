@@ -11,8 +11,8 @@ using Repository;
 namespace cinemaApp.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20241217154717_DBCreation")]
-    partial class DBCreation
+    [Migration("20250106142144_DatabaseCreation")]
+    partial class DatabaseCreation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,11 +35,23 @@ namespace cinemaApp.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("city");
 
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)")
+                        .HasColumnName("color");
+
                     b.Property<string>("Country")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("country");
+
+                    b.Property<string>("LogoUrl")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("logoUrl");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -56,21 +68,27 @@ namespace cinemaApp.Migrations
                         {
                             Uuid = new Guid("c9d4c053-49b6-410c-bc78-2d54a9991870"),
                             City = "Antwerp",
+                            Color = "place",
                             Country = "Belgium",
+                            LogoUrl = "https://www.destudio.com/sites/default/files/2021-08/DeStudio_logo.svg",
                             Name = "De Studio"
                         },
                         new
                         {
                             Uuid = new Guid("a6479f2a-963b-490f-ba92-6bdb99eb1f04"),
                             City = "Antwerp",
+                            Color = "place",
                             Country = "Belgium",
+                            LogoUrl = "https://www.lumiere-antwerpen.be/wp-content/uploads/2019/12/logo-lumiere-cinema.svg",
                             Name = "Lumières"
                         },
                         new
                         {
                             Uuid = new Guid("8b659e03-0435-485b-8f77-9dff6e1f40e6"),
                             City = "Antwerp",
+                            Color = "place",
                             Country = "Belgium",
+                            LogoUrl = "https://cinemacartoons.be/wp-content/uploads/2019/12/logo-cartoons-cinema-black.svg",
                             Name = "Cartoon's"
                         });
                 });
@@ -80,12 +98,12 @@ namespace cinemaApp.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("MovieId")
+                    b.Property<Guid>("ShowingId")
                         .HasColumnType("char(36)");
 
-                    b.HasKey("UserId", "MovieId");
+                    b.HasKey("UserId", "ShowingId");
 
-                    b.HasIndex("MovieId");
+                    b.HasIndex("ShowingId");
 
                     b.ToTable("Likes");
                 });
@@ -105,10 +123,6 @@ namespace cinemaApp.Migrations
                     b.Property<Guid>("CinemaId")
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("date_time");
-
                     b.Property<string>("Description")
                         .HasColumnType("longtext")
                         .HasColumnName("description");
@@ -119,21 +133,9 @@ namespace cinemaApp.Migrations
                         .HasColumnName("director");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("image_url");
-
-                    b.Property<string>("InfoLink")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("info_link");
-
-                    b.Property<string>("TicketLink")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("ticket_link");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -146,6 +148,38 @@ namespace cinemaApp.Migrations
                     b.HasIndex("CinemaId");
 
                     b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("Entities.Models.Showing", b =>
+                {
+                    b.Property<Guid>("Uuid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)")
+                        .HasColumnName("uuid");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("date_time");
+
+                    b.Property<string>("InfoLink")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("info_link");
+
+                    b.Property<Guid>("MovieId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("TicketLink")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("ticket_link");
+
+                    b.HasKey("Uuid");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("Showings");
                 });
 
             modelBuilder.Entity("Entities.Models.User", b =>
@@ -187,9 +221,9 @@ namespace cinemaApp.Migrations
 
             modelBuilder.Entity("Entities.Models.Like", b =>
                 {
-                    b.HasOne("Entities.Models.Movie", "Movie")
-                        .WithMany()
-                        .HasForeignKey("MovieId")
+                    b.HasOne("Entities.Models.Showing", "Showing")
+                        .WithMany("Like")
+                        .HasForeignKey("ShowingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -199,7 +233,7 @@ namespace cinemaApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Movie");
+                    b.Navigation("Showing");
 
                     b.Navigation("User");
                 });
@@ -213,6 +247,17 @@ namespace cinemaApp.Migrations
                         .IsRequired();
 
                     b.Navigation("Cinema");
+                });
+
+            modelBuilder.Entity("Entities.Models.Showing", b =>
+                {
+                    b.HasOne("Entities.Models.Movie", "Movie")
+                        .WithMany("Showings")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("Entities.Models.UserCinema", b =>
@@ -232,6 +277,16 @@ namespace cinemaApp.Migrations
                     b.Navigation("Cinema");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Entities.Models.Movie", b =>
+                {
+                    b.Navigation("Showings");
+                });
+
+            modelBuilder.Entity("Entities.Models.Showing", b =>
+                {
+                    b.Navigation("Like");
                 });
 
             modelBuilder.Entity("Entities.Models.User", b =>

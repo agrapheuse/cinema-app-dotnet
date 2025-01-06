@@ -46,6 +46,25 @@ public class UserController : ControllerBase
         }
     }
 
+    [HttpGet("userExists/{email}")]
+    public IActionResult UserExists(string email)
+    {
+        try
+        {
+            var user = _service.UserService.IsUser(email, trackChanges: false);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+
     [HttpGet("byEmail/{email}")]
     public IActionResult GetUserByEmail(string email)
     {

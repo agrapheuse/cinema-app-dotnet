@@ -6,12 +6,17 @@ public record MovieDto(
     string? Director,
     string? Category,
     string? Description,
-    Guid CinemaId,
-    DateTime DateTime,
     string ImageUrl,
+    CinemaDto cinema,
+    IEnumerable<ShowingDto> Showings
+);
+
+public record ShowingDto(
+    Guid Id,
+    DateTime DateTime,
     string InfoLink,
     string? TicketLink
-    );
+);
 
 public record LikeDto(
     Guid Uuid,
@@ -26,9 +31,12 @@ public record UserDto(
     );
 
 public record CinemaDto(
+    Guid Uuid,
     string? Name,
     string? Country,
-    string? City
+    string? City,
+    string? Color,
+    string? LogoUrl
     );
 
 public record UserCinemaDto(

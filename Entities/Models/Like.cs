@@ -4,9 +4,9 @@ namespace Entities.Models;
 
 public class Like
 {
-    [ForeignKey(nameof(Movie))]
-    public Guid MovieId { get; set; }
-    public Movie? Movie { get; set; }
+    [ForeignKey(nameof(Showing))]
+    public Guid ShowingId { get; set; }
+    public Showing? Showing { get; set; }
 
     [ForeignKey(nameof(User))]
     public Guid UserId { get; set; }
