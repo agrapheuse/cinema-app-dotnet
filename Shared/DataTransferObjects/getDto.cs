@@ -7,6 +7,7 @@ public record MovieDto(
     string? Category,
     string? Description,
     string ImageUrl,
+    CinemaDto cinema,
     IEnumerable<ShowingDto> Showings
 );
 
@@ -14,8 +15,7 @@ public record ShowingDto(
     Guid Id,
     DateTime DateTime,
     string InfoLink,
-    string? TicketLink,
-    CinemaDto Cinema
+    string? TicketLink
 );
 
 public record LikeDto(
@@ -34,7 +34,9 @@ public record CinemaDto(
     Guid Uuid,
     string? Name,
     string? Country,
-    string? City
+    string? City,
+    string? Color,
+    string? LogoUrl
     );
 
 public record UserCinemaDto(

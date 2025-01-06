@@ -11,7 +11,7 @@ using Repository;
 namespace cinemaApp.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20250104172757_DatabaseCreation")]
+    [Migration("20250106142144_DatabaseCreation")]
     partial class DatabaseCreation
     {
         /// <inheritdoc />
@@ -35,11 +35,23 @@ namespace cinemaApp.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("city");
 
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)")
+                        .HasColumnName("color");
+
                     b.Property<string>("Country")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("country");
+
+                    b.Property<string>("LogoUrl")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("logoUrl");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -56,21 +68,27 @@ namespace cinemaApp.Migrations
                         {
                             Uuid = new Guid("c9d4c053-49b6-410c-bc78-2d54a9991870"),
                             City = "Antwerp",
+                            Color = "place",
                             Country = "Belgium",
+                            LogoUrl = "https://www.destudio.com/sites/default/files/2021-08/DeStudio_logo.svg",
                             Name = "De Studio"
                         },
                         new
                         {
                             Uuid = new Guid("a6479f2a-963b-490f-ba92-6bdb99eb1f04"),
                             City = "Antwerp",
+                            Color = "place",
                             Country = "Belgium",
+                            LogoUrl = "https://www.lumiere-antwerpen.be/wp-content/uploads/2019/12/logo-lumiere-cinema.svg",
                             Name = "Lumières"
                         },
                         new
                         {
                             Uuid = new Guid("8b659e03-0435-485b-8f77-9dff6e1f40e6"),
                             City = "Antwerp",
+                            Color = "place",
                             Country = "Belgium",
+                            LogoUrl = "https://cinemacartoons.be/wp-content/uploads/2019/12/logo-cartoons-cinema-black.svg",
                             Name = "Cartoon's"
                         });
                 });
@@ -102,6 +120,9 @@ namespace cinemaApp.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("category");
 
+                    b.Property<Guid>("CinemaId")
+                        .HasColumnType("char(36)");
+
                     b.Property<string>("Description")
                         .HasColumnType("longtext")
                         .HasColumnName("description");
@@ -124,6 +145,8 @@ namespace cinemaApp.Migrations
 
                     b.HasKey("Uuid");
 
+                    b.HasIndex("CinemaId");
+
                     b.ToTable("Movies");
                 });
 
@@ -133,9 +156,6 @@ namespace cinemaApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)")
                         .HasColumnName("uuid");
-
-                    b.Property<Guid>("CinemaId")
-                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime(6)")
@@ -156,8 +176,6 @@ namespace cinemaApp.Migrations
                         .HasColumnName("ticket_link");
 
                     b.HasKey("Uuid");
-
-                    b.HasIndex("CinemaId");
 
                     b.HasIndex("MovieId");
 
@@ -220,7 +238,7 @@ namespace cinemaApp.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Entities.Models.Showing", b =>
+            modelBuilder.Entity("Entities.Models.Movie", b =>
                 {
                     b.HasOne("Entities.Models.Cinema", "Cinema")
                         .WithMany()
@@ -228,13 +246,16 @@ namespace cinemaApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Cinema");
+                });
+
+            modelBuilder.Entity("Entities.Models.Showing", b =>
+                {
                     b.HasOne("Entities.Models.Movie", "Movie")
                         .WithMany("Showings")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Cinema");
 
                     b.Navigation("Movie");
                 });

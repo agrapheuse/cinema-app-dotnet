@@ -23,6 +23,15 @@ public class RepositoryContext : DbContext
             .HasForeignKey(uc => uc.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        modelBuilder.Entity<Showing>()
+            .HasKey(sh => sh.Uuid);
+
+        modelBuilder.Entity<Showing>()
+            .HasOne(sh => sh.Movie)
+            .WithMany(m => m.Showings)
+            .HasForeignKey(sh => sh.MovieId)
+            .OnDelete(DeleteBehavior.Cascade);
+
         modelBuilder.Entity<Like>()
             .HasKey(li => new { li.UserId, MovieId = li.ShowingId });
 

@@ -19,7 +19,7 @@ public class MovieController : ControllerBase
     {
         try
         {
-            var movies = _service.MovieService.GetAllMovies(trackChanges: false).Take(10);
+            var movies = _service.MovieService.GetAllMovies(trackChanges: true).Take(10);
             return Ok(movies);
         }
         catch (Exception e)

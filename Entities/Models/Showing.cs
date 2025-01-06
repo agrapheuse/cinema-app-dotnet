@@ -9,10 +9,6 @@ public class Showing
     [Column("uuid")]
     public Guid Uuid { get; set; }
 
-    [ForeignKey(nameof(Cinema))]
-    public Guid CinemaId { get; set; }
-    public Cinema? Cinema { get; set; }
-
     [ForeignKey(nameof(Movie))]
     public Guid MovieId { get; set; }
     public Movie? Movie { get; set; }

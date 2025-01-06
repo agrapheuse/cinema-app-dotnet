@@ -29,5 +29,9 @@ public class Movie
     [Column("image_url")]
     public string? ImageUrl { get; set; }
 
+    [ForeignKey(nameof(Cinema))]
+    public Guid CinemaId { get; set; }
+    public Cinema? Cinema { get; set; }
+
     public ICollection<Showing>? Showings { get; set; }
 }

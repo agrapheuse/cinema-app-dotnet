@@ -29,7 +29,9 @@ public sealed class CinemaService : ICinemaService
                 c.Uuid,
                 c.Name,
                 c.Country,
-                c.City
+                c.City,
+                c.Color,
+                c.LogoUrl
             )).ToList();
 
             return cinemaDtos;
@@ -51,7 +53,9 @@ public sealed class CinemaService : ICinemaService
                 c.Uuid,
                 c.Name,
                 c.Country,
-                c.City
+                c.City,
+                c.Color,
+                c.LogoUrl
             )).ToList();
 
             return cinemaDtos;

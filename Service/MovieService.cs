@@ -31,17 +31,19 @@ public sealed class MovieService : IMovieService
                 movie.Category ?? string.Empty,
                 movie.Description ?? string.Empty,
                 movie.ImageUrl ?? string.Empty,
+                new CinemaDto(
+                    movie.Cinema.Uuid,
+                    movie.Cinema.Name,
+                    movie.Cinema.Country,
+                    movie.Cinema.City,
+                    movie.Cinema.Color,
+                    movie.Cinema.LogoUrl
+                ),
                 movie.Showings.Select(showing => new ShowingDto(
                     showing.Uuid,
                     showing.DateTime,
                     showing.InfoLink ?? string.Empty,
-                    showing.TicketLink,
-                    new CinemaDto(
-                        showing.Cinema.Uuid,
-                        showing.Cinema.Name,
-                        showing.Cinema.Country,
-                        showing.Cinema.City
-                    )
+                    showing.TicketLink
                 )).ToList()
             )).ToList();
 
@@ -67,17 +69,19 @@ public sealed class MovieService : IMovieService
                 movie.Category ?? string.Empty,
                 movie.Description ?? string.Empty,
                 movie.ImageUrl ?? string.Empty,
+                new CinemaDto(
+                    movie.Cinema.Uuid,
+                    movie.Cinema.Name,
+                    movie.Cinema.Country,
+                    movie.Cinema.City,
+                    movie.Cinema.Color,
+                    movie.Cinema.LogoUrl
+                ),
                 movie.Showings.Select(showing => new ShowingDto(
                     showing.Uuid,
                     showing.DateTime,
                     showing.InfoLink ?? string.Empty,
-                    showing.TicketLink,
-                    new CinemaDto(
-                        showing.Cinema.Uuid,
-                        showing.Cinema.Name,
-                        showing.Cinema.Country,
-                        showing.Cinema.City
-                    )
+                    showing.TicketLink
                 )).ToList()
             )).ToList();
 
@@ -103,17 +107,19 @@ public sealed class MovieService : IMovieService
                 movie.Category ?? string.Empty,
                 movie.Description ?? string.Empty,
                 movie.ImageUrl ?? string.Empty,
+                new CinemaDto(
+                    movie.Cinema.Uuid,
+                    movie.Cinema.Name,
+                    movie.Cinema.Country,
+                    movie.Cinema.City,
+                    movie.Cinema.Color,
+                    movie.Cinema.LogoUrl
+                ),
                 movie.Showings.Select(showing => new ShowingDto(
                     showing.Uuid,
                     showing.DateTime,
                     showing.InfoLink ?? string.Empty,
-                    showing.TicketLink,
-                    new CinemaDto(
-                        showing.Cinema.Uuid,
-                        showing.Cinema.Name,
-                        showing.Cinema.Country,
-                        showing.Cinema.City
-                    )
+                    showing.TicketLink
                 )).ToList()
             );
         }
