@@ -83,7 +83,7 @@ public class UserController : ControllerBase
         }
     }
 
-    [HttpGet("user{userUuid}/movie/{movieUuid}")]
+    [HttpGet("{userUuid}/movie/{movieUuid}")]
     public IActionResult IsMovieLikedByUser(string userUuid, string movieUuid)
     {
         try
@@ -97,8 +97,8 @@ public class UserController : ControllerBase
         }
     }
 
-    [HttpPost]
-    public IActionResult CreateLike([FromBody] LikeDto likeDto)
+    [HttpPost("like")]
+    public IActionResult CreateLike([FromBody] LikeForCreationDto likeDto)
     {
         if (likeDto is null)
         {
@@ -108,5 +108,20 @@ public class UserController : ControllerBase
         var createdLike = _service.UserService.CreateLike(likeDto);
         return Created();
     }
+
+    [HttpGet("{userUuid}/likes")]
+    public IActionResult GetLikesOfUser(string userUuid)
+    {
+        try
+        {
+            var isLiked = _service.UserService.getLikesOfUser(Guid.Parse(userUuid), trackChanges: false);
+            return Ok(isLiked);
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
 
 }

@@ -9,7 +9,7 @@ public class LikeRepository : RepositoryBase<Like>, ILikeRepository
     {
     }
 
-    public IEnumerable<Showing> GetLikeOfUser(Guid userUuid, bool trackChanges) =>
+    public IEnumerable<Showing> GetLikesOfUser(Guid userUuid, bool trackChanges) =>
         FindByCondition(like => like.UserId == userUuid, trackChanges)
             .Select(like => like.Showing)
             .Where(movie => movie != null);

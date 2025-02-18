@@ -18,12 +18,6 @@ public record ShowingDto(
     string? TicketLink
 );
 
-public record LikeDto(
-    Guid Uuid,
-    Guid MovieId,
-    Guid UserId
-    );
-
 public record UserDto(
     Guid Uuid,
     string Email,

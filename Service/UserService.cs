@@ -77,7 +77,7 @@ public sealed class UserService : IUserService
         }
     }
 
-    public LikeDto CreateLike(LikeDto likeDto)
+    public LikeForCreationDto CreateLike(LikeForCreationDto likeDto)
     {
         var likeEntity = _mapper.Map<Like>(likeDto);
 
@@ -97,6 +97,27 @@ public sealed class UserService : IUserService
         catch (Exception ex)
         {
             _logger.LogError($"Something went wrong in the {nameof(IsMovieLikedByUser)} service method {ex}");
+            throw;
+        }
+    }
+
+    public IEnumerable<ShowingDto> getLikesOfUser(Guid userId, bool trackChanges)
+    {
+        try
+        {
+            var showings = _repository.Like.GetLikesOfUser(userId, trackChanges);
+            var showingDtos = showings.Select(showing => new ShowingDto(
+                showing.Uuid,
+                showing.DateTime,
+                showing.InfoLink ?? string.Empty,
+                showing.TicketLink
+            )).ToList();
+
+            return showingDtos;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError($"Something went wrong in the {nameof(getLikesOfUser)} service method {e}");
             throw;
         }
     }
