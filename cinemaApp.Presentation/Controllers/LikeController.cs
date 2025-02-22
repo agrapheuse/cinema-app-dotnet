@@ -17,21 +17,8 @@ public class LikeController : ControllerBase
         _service = service;
     }
 
-
-    //[HttpPost]
-    //public IActionResult CreateLike([FromBody] LikeForCreationDto likeDto)
-    //{
-    //    if (likeDto is null)
-    //    {
-    //        return BadRequest("Like data is null.");
-    //    }
-
-    //    var createdLike = _service.LikeService.CreateLike(likeDto);
-    //    return CreatedAtRoute("GetLikeById", createdLike);
-    //}
-
     [HttpGet("{id}/{userId}")]
-    public async Task<IActionResult> GetLikeById(Guid id, Guid userId)
+    public async Task<IActionResult> GetLikesById(Guid id, Guid userId)
     {
         return StatusCode(500, "Not yet implemented");
     }

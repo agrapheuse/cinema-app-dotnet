@@ -9,6 +9,6 @@ public interface IUserService
     UserDto GetUserByEmail(string email, bool trackChanges);
     bool IsUser(string email, bool trackChanges);
     bool IsMovieLikedByUser(Guid userId, Guid movieId, bool trackChanges);
-    LikeDto CreateLike(LikeDto likeDto);
-
+    LikeForCreationDto CreateLike(LikeForCreationDto likeDto);
+    IEnumerable<ShowingDto> getLikesOfUser(Guid userId, bool trackChanges);
 }

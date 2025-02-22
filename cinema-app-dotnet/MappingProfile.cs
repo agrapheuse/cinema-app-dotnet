@@ -8,7 +8,9 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMap<User, UserDto>();
-        CreateMap<Like, LikeDto>();
+        CreateMap<LikeForCreationDto, Like>()
+            .ForMember(dest => dest.ShowingId, opt => opt.MapFrom(src => Guid.Parse(src.ShowingId)))
+            .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => Guid.Parse(src.UserId)));
 
         CreateMap<UserForCreationDto, User>();
         CreateMap<UserCinemaDto, UserCinema>();

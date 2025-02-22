@@ -18,11 +18,14 @@ public record ShowingDto(
     string? TicketLink
 );
 
-public record LikeDto(
-    Guid Uuid,
-    Guid MovieId,
-    Guid UserId
-    );
+public record MyShowingDto(
+    Guid Id,
+    DateTime DateTime,
+    string InfoLink,
+    string? TicketLink,
+    MovieDto Movie
+) : ShowingDto(Id, DateTime, InfoLink, TicketLink);
+
 
 public record UserDto(
     Guid Uuid,
