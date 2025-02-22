@@ -77,7 +77,7 @@ public sealed class UserService : IUserService
         }
     }
 
-    public LikeDto CreateLike(LikeDto likeDto)
+    public LikeForCreationDto CreateLike(LikeForCreationDto likeDto)
     {
         var likeEntity = _mapper.Map<Like>(likeDto);
 
@@ -97,6 +97,44 @@ public sealed class UserService : IUserService
         catch (Exception ex)
         {
             _logger.LogError($"Something went wrong in the {nameof(IsMovieLikedByUser)} service method {ex}");
+            throw;
+        }
+    }
+
+    public IEnumerable<ShowingDto> getLikesOfUser(Guid userId, bool trackChanges)
+    {
+        try
+        {
+            var showings = _repository.Like.GetLikesOfUser(userId, trackChanges);
+            var showingDtos = showings.Select(showing => new MyShowingDto(
+                showing.Uuid,
+                showing.DateTime,
+                showing.InfoLink ?? string.Empty,
+                showing.TicketLink,
+                new MovieDto(
+                    showing.Movie.Uuid,
+                    showing.Movie.Title,
+                    showing.Movie.Director ?? string.Empty,
+                    showing.Movie.Category ?? string.Empty,
+                    showing.Movie.Description ?? string.Empty,
+                    showing.Movie.ImageUrl ?? string.Empty,
+                    new CinemaDto(
+                        showing.Movie.Cinema.Uuid,
+                        showing.Movie.Cinema.Name,
+                        showing.Movie.Cinema.Country,
+                        showing.Movie.Cinema.City,
+                        showing.Movie.Cinema.Color,
+                        showing.Movie.Cinema.LogoUrl
+                    ),
+                    [] // info not needed for this use case (find better way to handle this) 
+                )
+            )).ToList();
+
+            return showingDtos;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError($"Something went wrong in the {nameof(getLikesOfUser)} service method {e}");
             throw;
         }
     }
