@@ -114,12 +114,13 @@ public class UserController : ControllerBase
     {
         try
         {
-            var isLiked = _service.UserService.getLikesOfUser(Guid.Parse(userUuid), trackChanges: false);
-            return Ok(isLiked);
+            var showings = _service.UserService.getLikesOfUser(Guid.Parse(userUuid), trackChanges: false);
+            return Ok(showings);
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            return StatusCode(500, "Internal Server Error");
+            Console.WriteLine(e);
+            return StatusCode(500, "Internal Server Error: " + e.Message);
         }
     }
 

@@ -106,11 +106,28 @@ public sealed class UserService : IUserService
         try
         {
             var showings = _repository.Like.GetLikesOfUser(userId, trackChanges);
-            var showingDtos = showings.Select(showing => new ShowingDto(
+            var showingDtos = showings.Select(showing => new MyShowingDto(
                 showing.Uuid,
                 showing.DateTime,
                 showing.InfoLink ?? string.Empty,
-                showing.TicketLink
+                showing.TicketLink,
+                new MovieDto(
+                    showing.Movie.Uuid,
+                    showing.Movie.Title,
+                    showing.Movie.Director ?? string.Empty,
+                    showing.Movie.Category ?? string.Empty,
+                    showing.Movie.Description ?? string.Empty,
+                    showing.Movie.ImageUrl ?? string.Empty,
+                    new CinemaDto(
+                        showing.Movie.Cinema.Uuid,
+                        showing.Movie.Cinema.Name,
+                        showing.Movie.Cinema.Country,
+                        showing.Movie.Cinema.City,
+                        showing.Movie.Cinema.Color,
+                        showing.Movie.Cinema.LogoUrl
+                    ),
+                    [] // info not needed for this use case (find better way to handle this) 
+                )
             )).ToList();
 
             return showingDtos;

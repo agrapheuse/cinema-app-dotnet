@@ -18,6 +18,15 @@ public record ShowingDto(
     string? TicketLink
 );
 
+public record MyShowingDto(
+    Guid Id,
+    DateTime DateTime,
+    string InfoLink,
+    string? TicketLink,
+    MovieDto Movie
+) : ShowingDto(Id, DateTime, InfoLink, TicketLink);
+
+
 public record UserDto(
     Guid Uuid,
     string Email,
